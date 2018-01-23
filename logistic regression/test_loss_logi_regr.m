@@ -34,7 +34,7 @@ for t=1:T
     %evaluate the loss
     loss(t,1) = 1/n*sum(log(1+exp(-1*label .* (training_data*x))));
 end
-save('loss3n.txt','loss','-ascii');
+save('loss3n_logi_ress.txt','loss','-ascii');
 
 
 
