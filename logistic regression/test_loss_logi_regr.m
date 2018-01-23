@@ -26,8 +26,8 @@ for t=1:T
     nabla_x = -1/n *(transpose(training_data(i,:))*label(i,:))/(1+exp(label(i,:)*training_data(i,:)*x));
     cvx_begin
         variable x_unknown(d,1)
-        temp1 = norm(Q*x_unknown,1);
-        temp2 = x_unknown' * x_unknown;
+        temp1 = norm(Q*(x_unknown-x),1);
+        temp2 = (x_unknown-x)' * (x_unknown-x);
         minimize (transpose(nabla_x)*(x_unknown-x) + 1/eta*(   temp2  ));
         x = x_unknown;
     cvx_end
