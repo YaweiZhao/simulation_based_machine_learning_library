@@ -2,7 +2,7 @@
 clear;
 %load data: computer_hardware
 data = load('../dataset/Yacht/training_data.txt');
-%data = transpose(mapstd(data'));
+data = transpose(mapstd(data'));
 [n,d] = size(data);
 training_data = data(:,1:d-1);
 training_data = [training_data ones(n,1)];% add 1-offset
@@ -21,10 +21,6 @@ for i=1:d-1
 end
 Q = Q + eye(d);
 
-    %evaluate the loss
-    loss_an_instance = sum(training_data .* repmat(x', n,1),2)-label;
-    loss_init = 1/2*1/n*(loss_an_instance' * loss_an_instance) + gamma/2*(x'*x);
-
 for t=1:T
     i = randi(n);
     nabla_x = 1/n*(training_data(i,:)*x - label(i,:))*transpose(training_data(i,:)) + gamma*x;
@@ -32,14 +28,14 @@ for t=1:T
         variable x_unknown(d,1)
         temp1 = norm(Q*x_unknown,1);
         temp2 = x_unknown' * x_unknown;
-        minimize (transpose(nabla_x)*(x_unknown-x) + 1/eta*(   temp2  ));
+        minimize (transpose(nabla_x)*(x_unknown-x) + 1/eta*(   temp1  ));
         x = x_unknown;
     cvx_end
     %evaluate the loss
     loss_an_instance = sum(training_data .* repmat(x', n,1),2)-label;
     loss(t,1) = 1/2*1/n*(loss_an_instance' * loss_an_instance) + gamma/2*(x'*x);
 end
-save();
+save('loss3n.txt','loss','-ascii');
 
 
 
