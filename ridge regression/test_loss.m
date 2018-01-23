@@ -28,7 +28,7 @@ for t=1:T
         variable x_unknown(d,1)
         temp1 = norm(Q*x_unknown,1);
         temp2 = x_unknown' * x_unknown;
-        minimize (transpose(nabla_x)*(x_unknown-x) + 1/eta*(   temp1  ));
+        minimize (transpose(nabla_x)*(x_unknown-x) + 1/eta*(   temp2  ));
         x = x_unknown;
     cvx_end
     %evaluate the loss
