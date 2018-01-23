@@ -11,7 +11,7 @@ label = data(:,d);
 [n,d] = size(training_data);
 eta = 1e-3;%learning rate
 gamma = 1e-3;% regularization coefficient
-T = 3;%total number of iterations
+T = 10;%total number of iterations
 x = zeros(d,1);%the initial parameter
 loss = zeros(n,1);
 %define an auxiliary matrix Q
