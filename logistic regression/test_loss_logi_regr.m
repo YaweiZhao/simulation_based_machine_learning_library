@@ -32,7 +32,7 @@ for t=1:T
         x = x_unknown;
     cvx_end
     %evaluate the loss
-    loss(t,1) = 1/n*sum(ln(1+exp(-1*label .* (training_data*x))));
+    loss(t,1) = 1/n*sum(log(1+exp(-1*label .* (training_data*x))));
 end
 save('loss3n.txt','loss','-ascii');
 
