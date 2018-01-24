@@ -13,7 +13,7 @@ training_data = [training_data ones(n,1)];% add 1-offset
 %initialize parameters
 eta = 1e-1;%learning rate
 gamma = 1e-3;% regularization coefficient
-T = 100;%total number of iterations
+T = 10;%total number of iterations
 x = zeros(d,1);%the initial parameter
 loss = zeros(T,1);
 %define an auxiliary matrix Q
@@ -40,7 +40,7 @@ for t=1:T
         variable x_unknown(d,1)
         temp1 = norm(Q*(x_unknown-x),1);
         temp2 = (x_unknown-x)' * (x_unknown-x);
-        minimize (transpose(stoc_nabla_x)*(x_unknown-x) + (1/eta)*(  temp2 +  1e-3*temp1  ));
+        minimize (transpose(stoc_nabla_x)*(x_unknown-x) + (1/eta)*(  temp2 +  1e-2*temp1  ));
         x = x_unknown;
     cvx_end
     delta_x = delta_x - x;
