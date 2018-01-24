@@ -5,6 +5,7 @@ data = load('../dataset/covtype/covtype.mat');
 data = data.data;
 [n,d] = size(data);
 label = data(:,1);
+label(label==2) = -1;% all the labels are +1 or -1.
 training_data = data(:,2:d);
 %training_data = transpose(mapstd(training_data'));
 [n,d] = size(training_data);
