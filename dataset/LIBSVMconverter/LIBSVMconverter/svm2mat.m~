@@ -1,0 +1,32 @@
+function y=svm2mat(s)
+% Usage: y=svm2mat ('filename')
+clc
+fid = fopen(s);
+i=1;
+while ~feof(fid) % not end of the file 
+       s = fgetl(fid); % get a line 
+       data_char=[];  j=1;
+       data_values=[];
+       label=[];
+       index_char=[];
+       index_values=[];
+       while (j<=length(s))
+             while( s(j)~=' ')    
+                   data_char=[data_char s(j)];
+                   j=j+1;   
+             end  
+             j=j+1;   
+             data_char=[data_char ' '];
+             while ( (j<length(s)) && (s(j)~=':') )  
+                    index_char = [index_char s(j)];
+                    j=j+1;   
+             end             
+             j=j+1;   
+       end
+        index_values=str2num(index_char);%the array of index values for a line
+        data_values=str2num(data_char) ;%the array of data values for a line
+end
+        
+        i=i+1;      
+end
+
