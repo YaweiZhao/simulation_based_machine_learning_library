@@ -11,9 +11,9 @@ training_data = data(:,2:d);
 training_data = [training_data ones(n,1)];% add 1-offset
 [n,d] = size(training_data);
 %initialize parameters
-eta = 1e-3;%learning rate
+eta = 1e-1;%learning rate
 gamma = 1e-3;% regularization coefficient
-T = 100;%total number of iterations
+T = 10;%total number of iterations
 x = zeros(d,1);%the initial parameter
 loss = zeros(T,1);
 %define an auxiliary matrix Q
@@ -24,8 +24,9 @@ end
 Q = Q + eye(d);
 
 loss_init = 1/n*sum(log(1+exp(-1*label .* (training_data*x))));
-
+stoc_nabla_x = zeros(d,1);
 b = fix(0.01*n);%mini-batch
+delta_x = zeros(d,1);
 for t=1:T
     stoc_nabla_x = zeros(d,1);
     for j=1:b
@@ -34,13 +35,15 @@ for t=1:T
         stoc_nabla_x = stoc_nabla_x + stoc_nabla_x_temp;
     end
     stoc_nabla_x = 1/b*stoc_nabla_x;
+    delta_x = x;
     cvx_begin
         variable x_unknown(d,1)
         temp1 = norm(Q*(x_unknown-x),1);
         temp2 = (x_unknown-x)' * (x_unknown-x);
-        minimize (transpose(stoc_nabla_x)*(x_unknown-x) + (1/eta)*(   temp1  ));
+        minimize (transpose(stoc_nabla_x)*(x_unknown-x) + (1/eta)*(  temp2 +  1e-3*temp1  ));
         x = x_unknown;
     cvx_end
+    delta_x = delta_x - x;
     %evaluate the loss
     loss(t,1) = 1/n*sum(log(1+exp(-1*label .* (training_data*x))));
 end
