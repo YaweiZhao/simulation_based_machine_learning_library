@@ -6,7 +6,7 @@ data = data.data;
 [n,d] = size(data);
 label = data(:,1);
 training_data = data(:,2:d);
-training_data = transpose(mapstd(training_data'));
+%training_data = transpose(mapstd(training_data'));
 [n,d] = size(training_data);
 training_data = [training_data ones(n,1)];% add 1-offset
 
