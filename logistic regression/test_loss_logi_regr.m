@@ -11,11 +11,7 @@ training_data = data(:,2:d);
 training_data = [training_data ones(n,1)];% add 1-offset
 [n,d] = size(training_data);
 %initialize parameters
-<<<<<<< HEAD
-eta = 1e-5;%learning rate
-=======
 eta = 1e-3;%learning rate
->>>>>>> fa2aafcbfa34d984e3ba5a49f0fee926217eb36b
 gamma = 1e-3;% regularization coefficient
 T = 100;%total number of iterations
 x = zeros(d,1);%the initial parameter
