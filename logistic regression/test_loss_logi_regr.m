@@ -1,17 +1,18 @@
 %ridge regression
 clear;
 %load data: computer_hardware
-data = load('../dataset/covtype/covtype.txt');
+data = load('../dataset/covtype/covtype.mat');
+data = data.data;
 data = transpose(mapstd(data'));
 [n,d] = size(data);
-training_data = data(:,1:d-1);
+training_data = data(:,2:d);
 training_data = [training_data ones(n,1)];% add 1-offset
-label = data(:,d);
+label = data(:,1);
 %initialize parameters
 [n,d] = size(training_data);
 eta = 1e-3;%learning rate
 gamma = 1e-3;% regularization coefficient
-T = 10;%total number of iterations
+T = 3*n;%total number of iterations
 x = zeros(d,1);%the initial parameter
 loss = zeros(n,1);
 %define an auxiliary matrix Q
@@ -36,7 +37,7 @@ for t=1:T
     %evaluate the loss
     loss(t,1) = 1/n*sum(log(1+exp(-1*label .* (training_data*x))));
 end
-save('loss3n_logi_ress.txt','loss','-ascii');
+save('loss3n_logi_ress_l2norm.mat','loss');
 
 
 
