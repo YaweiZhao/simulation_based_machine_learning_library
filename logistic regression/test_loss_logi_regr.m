@@ -27,12 +27,12 @@ loss_init = 1/n*sum(log(1+exp(-1*label .* (training_data*x))));
 
 for t=1:T
     i = randi(n);
-    nabla_x = -1/n *(transpose(training_data(i,:))*label(i,:))/(1+exp(label(i,:)*training_data(i,:)*x));
+    nabla_x = -(transpose(training_data(i,:))*label(i,:))/(1+exp(label(i,:)*training_data(i,:)*x));
     cvx_begin
         variable x_unknown(d,1)
         temp1 = norm(Q*(x_unknown-x),1);
         temp2 = (x_unknown-x)' * (x_unknown-x);
-        minimize (transpose(nabla_x)*(x_unknown-x) + 1/eta*(   temp2  ));
+        minimize (transpose(nabla_x)*(x_unknown-x) + (1/eta)*(   temp2  ));
         x = x_unknown;
     cvx_end
     %evaluate the loss
