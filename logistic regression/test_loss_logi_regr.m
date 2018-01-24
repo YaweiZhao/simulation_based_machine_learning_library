@@ -47,6 +47,8 @@ for t=1:T
     %evaluate the loss
     loss(t,1) = 1/n*sum(log(1+exp(-1*label .* (training_data*x))));
 end
+save('delta_x.mat','delta_x');%used to plot the delta of x
+save('loss.mat','loss')
 save('loss3n_logi_ress_l2norm.mat','loss');
 
 
