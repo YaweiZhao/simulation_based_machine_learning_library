@@ -11,13 +11,13 @@ training_data = data(:,2:d);
 training_data = [training_data ones(n,1)];% add 1-offset
 [n,d] = size(training_data);
 %initialize parameters
-eta = 1e-3;%learning rate
+eta = 1e-1;%learning rate
 gamma = 1e-3;% regularization coefficient
 T = 10;%total number of iterations
 x = zeros(d,1);%the initial parameter
 loss = zeros(T,1);
 %define an auxiliary matrix Q
-Q = zeros(d);
+Q = zeros(d,d);
 for i=1:d-1
     Q(i,i+1) = -1;
 end
